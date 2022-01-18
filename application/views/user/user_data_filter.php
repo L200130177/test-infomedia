@@ -1,0 +1,72 @@
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1><?=$title?></h1>
+            <?php echo $this->session->userdata('cariberdasarkan'); ?>
+            <?php echo $this->session->userdata('yangdicari'); ?>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="card">
+           <div class="card-body">
+            <div class="align-right">
+            <a href="<?=site_url('user')?>" class="btn btn-warning btn-flat">
+              <i class="fa fa-undo"></i> Back
+            </a>
+            <a href="<?=site_url('user/print')?>" class="btn btn-danger btn-flat">
+              <i class="fa fa-print"></i> Print
+            </a>
+            </div>
+          </br>
+
+                <table id="example2" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Last Update</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+              <?php $no = 1;
+              foreach ($user->result() as $key => $u) { ?>
+              <tr>
+                <td style="width:5%;"><?=$no++?></td>
+                <td><?=$u->username?></td>
+                <td><?=$u->role_id == 1 ? "Admin" : "User";?></td>
+                <td><?=$u->last_update?></td>
+                <td class="text-center" width="160px">
+                  <form action="<?=site_url('user/del')?>" method="post">
+                    <a href="<?=site_url('user/edit/'.$u->id_user)?>" class="btn btn-primary btn-xs">
+                      <i class="fa fa-pencil"></i> Update
+                    </a>
+                         
+                    <input type="hidden" name="id_user" value="<?=$u->id_user?>">
+                      <button onclick="return confirm('Apakah anda yakin ingin menghapus ?')" class="btn btn-danger btn-xs">
+                        <i class="fa fa-trash"></i> Delete
+                      </button>
+                </form>
+
+                </td>
+              </tr>
+              <?php 
+              } ?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->  
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
